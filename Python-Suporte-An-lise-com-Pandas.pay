@@ -5,9 +5,9 @@ import seaborn as sns
 # 1. Simulação de dados de atendimento ao cliente
 dados_suporte = {
     "ID_Chamado": [101, 102, 103, 104, 105, 106, 107, 108, 109, 110],
-    "Categoria": ["Dúvida", "Problema Técnico", "Financeiro", "Dúvida", "Problema Técnico", 
+    "Categoria": ["Dúvida", "Problema Técnico", "Financeiro", "Dúvida", "Problema Técnico",
                   "Elogio", "Financeiro", "Problema Técnico", "Dúvida", "Problema Técnico"],
-    "Status": ["Fechado", "Fechado", "Aberto", "Fechado", "Pendente", 
+    "Status": ["Fechado", "Fechado", "Aberto", "Fechado", "Pendente",
                "Fechado", "Fechado", "Fechado", "Fechado", "Aberto"],
     "Tempo_Resposta_Minutos": [15, 45, 120, 10, 60, 5, 90, 30, 20, 50],
     "Satisfacao_Cliente": [5, 4, 2, 5, 3, 5, 4, 4, 5, 3]
@@ -21,14 +21,16 @@ sns.set_theme(style="whitegrid")
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 # Gráfico 1: Quantidade de chamados por Categoria
-sns.countplot(data=df, x="Categoria", ax=axes[0], palette="viridis")
+sns.countplot(data=df, x="Categoria", hue="Categoria", palette="viridis",
+              legend=False, ax=axes[0])
 axes[0].set_title("Quantidade de Chamados por Categoria")
 axes[0].set_xlabel("Categoria")
 axes[0].set_ylabel("Total de Chamados")
 
 # Gráfico 2: Tempo médio de resposta por Categoria
 df_tempo = df.groupby("Categoria")["Tempo_Resposta_Minutos"].mean().reset_index()
-sns.barplot(data=df_tempo, x="Categoria", y="Tempo_Resposta_Minutos", ax=axes[1], palette="magma")
+sns.barplot(data=df_tempo, x="Categoria", y="Tempo_Resposta_Minutos",
+            hue="Categoria", palette="magma", legend=False, ax=axes[1])
 axes[1].set_title("Tempo Médio de Resposta (Minutos)")
 axes[1].set_xlabel("Categoria")
 axes[1].set_ylabel("Média em Minutos")
